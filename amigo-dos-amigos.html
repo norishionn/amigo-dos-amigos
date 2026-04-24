@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amigo dos Amigos – Guaranésia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8EF;
+    --warm-white: #FFFCF7;
+    --terracotta: #C9522A;
+    --terracotta-light: #F2784B;
+    --terracotta-pale: #FDEEE7;
+    --forest: #2D5A27;
+    --forest-light: #4A8042;
+    --forest-pale: #EAF2E8;
+    --golden: #E8A825;
+    --golden-pale: #FEF7E0;
+    --brown: #5C3D2E;
+    --text-dark: #1E1612;
+    --text-mid: #5C4A3D;
+    --text-light: #9C8677;
+    --border: #E8D9CE;
+    --urgent-red: #C0392B;
+    --urgent-pale: #FCF0EE;
+    --shadow: 0 4px 24px rgba(92,61,46,0.10);
+    --shadow-lg: 0 12px 48px rgba(92,61,46,0.15);
+    --radius: 16px;
+    --radius-lg: 28px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,248,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 1.2rem;
+    color: var(--terracotta);
+    text-decoration: none;
+  }
+  .nav-logo .paw { font-size: 1.5rem; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-mid);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--terracotta);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 999px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--terracotta-light) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--warm-white);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 55%; height: 100%;
+    background: var(--forest-pale);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    width: 100%;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--terracotta-pale);
+    color: var(--terracotta);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--terracotta);
+  }
+  .hero-sub {
+    font-size: 1.1rem; line-height: 1.7;
+    color: var(--text-mid);
+    margin-bottom: 2.5rem;
+    max-width: 440px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--terracotta); color: #fff;
+    padding: 14px 32px; border-radius: 999px;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(201,82,42,0.35);
+  }
+  .btn-primary:hover { background: var(--terracotta-light); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--forest);
+    padding: 14px 32px; border-radius: 999px;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none; transition: all 0.2s;
+    border: 2px solid var(--forest);
+  }
+  .btn-secondary:hover { background: var(--forest); color: #fff; }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700;
+    color: var(--terracotta);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 2px; }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .hero-card {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+  }
+  .hero-card:hover { transform: translateY(-4px); }
+  .hero-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+  .hero-card.tall { grid-row: span 2; }
+  .hero-card.tall img { height: 100%; min-height: 420px; }
+  .hero-card-info { padding: 12px 14px; }
+  .animal-name { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); }
+  .animal-meta { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+  .animal-badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin-top: 6px;
+  }
+  .badge-adopt { background: var(--forest-pale); color: var(--forest); }
+  .badge-foster { background: var(--golden-pale); color: #8a5a00; }
+  .badge-urgent { background: var(--urgent-pale); color: var(--urgent-red); }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.2; color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  .section-sub { font-size: 1rem; line-height: 1.7; color: var(--text-mid); max-width: 600px; }
+
+  /* ── URGENT / NEWS ── */
+  #urgente { background: var(--warm-white); }
+  .urgent-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+  .urgent-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--urgent-red); color: #fff;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  .urgent-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .fb-note {
+    font-size: 0.85rem; color: var(--text-light);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .fb-note a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
+  .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .post-card {
+    background: #fff; border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden; transition: box-shadow 0.2s, transform 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .post-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .post-img { width: 100%; height: 200px; object-fit: cover; }
+  .post-body { padding: 1.25rem; flex: 1; }
+  .post-date { font-size: 0.78rem; color: var(--text-light); margin-bottom: 0.5rem; }
+  .post-text { font-size: 0.92rem; line-height: 1.65; color: var(--text-mid); }
+  .post-link {
+    display: inline-block; margin-top: 0.75rem;
+    color: var(--terracotta); font-weight: 600; font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .post-link:hover { text-decoration: underline; }
+
+  /* Facebook embed fallback */
+  .fb-embed-wrap {
+    background: #fff; border-radius: var(--radius); border: 1px solid var(--border);
+    padding: 1.5rem; text-align: center;
+  }
+  .fb-embed-wrap iframe { border: none; overflow: hidden; border-radius: 12px; }
+
+  /* ── ANIMALS GRID ── */
+  #adotar { background: var(--cream); }
+  .filter-bar {
+    display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    padding: 8px 20px; border-radius: 999px; border: 1.5px solid var(--border);
+    background: transparent; color: var(--text-mid); font-family: 'DM Sans', sans-serif;
+    font-weight: 500; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+  .animals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .animal-card {
+    background: #fff; border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .animal-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .animal-card-img { position: relative; }
+  .animal-card-img img { width: 100%; height: 240px; object-fit: cover; display: block; }
+  .animal-card-badges {
+    position: absolute; top: 12px; left: 12px;
+    display: flex; gap: 6px;
+  }
+  .animal-card-body { padding: 1.25rem 1.25rem 1.5rem; }
+  .animal-card-name {
+    font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 4px;
+  }
+  .animal-card-details { font-size: 0.82rem; color: var(--text-light); margin-bottom: 0.75rem; }
+  .animal-card-desc { font-size: 0.88rem; line-height: 1.6; color: var(--text-mid); margin-bottom: 1rem; }
+  .btn-adopt {
+    display: block; text-align: center;
+    background: var(--terracotta); color: #fff;
+    padding: 10px; border-radius: 999px;
+    font-weight: 600; font-size: 0.875rem; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-adopt:hover { background: var(--terracotta-light); }
+  .btn-foster {
+    background: var(--forest);
+  }
+  .btn-foster:hover { background: var(--forest-light); }
+
+  /* ── ABOUT ── */
+  #sobre { background: var(--forest); color: #fff; position: relative; overflow: hidden; }
+  #sobre::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text .section-tag { color: #a8d5a0; }
+  .about-text .section-title { color: #fff; }
+  .about-text .section-sub { color: rgba(255,255,255,0.75); max-width: 100%; }
+  .about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  .pillar {
+    background: rgba(255,255,255,0.08);
+    border-radius: var(--radius); padding: 1.25rem;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .pillar-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .pillar-title { font-weight: 600; font-size: 0.95rem; color: #fff; margin-bottom: 4px; }
+  .pillar-text { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .about-img-stack { position: relative; height: 500px; }
+  .about-img-main {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+  .about-img-badge {
+    position: absolute; bottom: -24px; right: -24px;
+    background: var(--terracotta); color: #fff;
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-lg);
+  }
+  .about-img-badge strong {
+    font-family: 'Fraunces', serif; font-size: 1.8rem; display: block;
+  }
+  .about-img-badge span { font-size: 0.8rem; opacity: 0.85; }
+
+  /* ── HOW TO ADOPT ── */
+  #como { background: var(--golden-pale); }
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .step {
+    text-align: center; padding: 2rem 1.5rem;
+    background: #fff; border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--terracotta); color: #fff;
+    font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  .step-title { font-weight: 600; font-size: 1rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+  .step-text { font-size: 0.85rem; line-height: 1.6; color: var(--text-mid); }
+
+  /* ── CONTACT ── */
+  #contato { background: var(--warm-white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-info-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.25rem; background: #fff;
+    border-radius: var(--radius); border: 1px solid var(--border);
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--terracotta-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .contact-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .contact-value { font-size: 0.95rem; color: var(--text-dark); margin-top: 2px; font-weight: 500; }
+  .contact-value a { color: var(--terracotta); text-decoration: none; }
+  .contact-value a:hover { text-decoration: underline; }
+  .contact-form-wrap {
+    background: #fff; border-radius: var(--radius-lg);
+    padding: 2rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .form-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-dark); }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    border: 1.5px solid var(--border); background: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-dark);
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--terracotta); }
+  .form-group textarea { min-height: 100px; resize: vertical; }
+  .form-submit {
+    width: 100%; padding: 13px; border-radius: 999px;
+    background: var(--terracotta); color: #fff; border: none;
+    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--terracotta-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark); color: rgba(255,255,255,0.7);
+    padding: 3rem 2rem; text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.5rem;
+  }
+  .footer-sub { font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--terracotta-light); }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+  /* ── UTILS ── */
+  .text-center { text-align: center; }
+  .mt-2 { margin-top: 2rem; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { padding: 80px 1.25rem 3rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-visual { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .about-img-stack { display: none; }
+    section { padding: 4rem 1.25rem; }
+  }
+
+  /* Smooth entrance animation */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="paw">🐾</span>
+    Amigo dos Amigos
+  </a>
+  <ul class="nav-links">
+    <li><a href="#urgente">Urgente</a></li>
+    <li><a href="#adotar">Adotar</a></li>
+    <li><a href="#lar-temporario">Lar Temporário</a></li>
+    <li><a href="#sobre">Sobre Nós</a></li>
+    <li><a href="#contato" class="nav-cta">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="hero-text fade-in">
+      <span class="hero-tag">🌿 Guaranésia, MG</span>
+      <h1>Todo animal merece um lar com <em>amor</em></h1>
+      <p class="hero-sub">Somos um abrigo independente dedicado a resgatar, cuidar e encontrar lares amorosos para cães e gatos em situação de vulnerabilidade em Guaranésia e região.</p>
+      <div class="hero-btns">
+        <a href="#adotar" class="btn-primary">Quero Adotar 🐶</a>
+        <a href="#lar-temporario" class="btn-secondary">Ser Lar Temporário</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Animais resgatados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">150+</div>
+          <div class="stat-label">Adoções realizadas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Anos de história</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <div class="hero-card tall">
+        <img src="https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/647914880_1346992300800046_6400506728361530314_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=gDkZtqyQFhoQ7kNvwHl36wy&_nc_oc=Adqh_vecuHjLFUIb7u1RsNVydoKrUUxBuMFggm_LtCoHXA1am-QfXQUOhLWhfbf0G2g&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=1W4cSRUo_Gw2XS--XwDvLA&oh=00_Af2txxY5df_htk9z9HFIrzEdwu2N3m-TiznqC-2dwc93Fw&oe=69F13F7C" alt="Cachorro para adoção">
+        <div class="hero-card-info">
+          <div class="animal-name">Thor</div>
+          <div class="animal-meta">Macho · 6 anos · Grande porte</div>
+          <span class="animal-badge badge-adopt">Para adoção</span>
+        </div>
+      </div>
+      <div>
+        <div class="hero-card" style="margin-bottom:1rem;">
+          <img src="https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/649588040_1350867840412492_5077129235487363133_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=zXt0TVR_VnYQ7kNvwFUvYnK&_nc_oc=Adp5wDmw_rWxa4-QPFzeLMCKcUg2o7ifIH-U5MTaXOrLeLiXAoy3Gl4Ukgfr5wxNDHE&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=oTvxQcLgbNvbQ659hYS7oQ&oh=00_Af3FlXvyHcwMvWhyEXw6o2eED2Lr6npL1y9e3YsOAZhnQQ&oe=69F11327" alt="Gato para adoção">
+          <div class="hero-card-info">
+            <div class="animal-name">Frajola</div>
+            <div class="animal-meta">Macho · 2 ano · Pequeno porte</div>
+            <span class="animal-badge badge-adopt">Para adoção</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/648734279_1351775656988377_7156142516037776910_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=L7zYwa4znnwQ7kNvwE_qiuC&_nc_oc=AdrZSSkYdNKpB98u2PYsIArYdiVMD-JHRoIV2px5Dg8yj2ZBVzL9j3iqBV0ZMWrIi0A&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=7sVVUwiBu8OCfjJXtfsfJA&oh=00_Af2iZ-n6sKyeA49T7dkfkfdeD1yFzZpBmJyg477jV0v1yA&oe=69F11533" alt="Cachorro lar temporário">
+          <div class="hero-card-info">
+            <div class="animal-name">Bolinha</div>
+            <div class="animal-meta">Macho · 3 anos · Médio porte</div>
+            <span class="animal-badge badge-foster">Lar temporário</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENTE / FACEBOOK -->
+<section id="urgente">
+  <div class="container">
+    <div class="urgent-header">
+      <div>
+        <span class="urgent-badge">Urgente</span>
+        <h2 class="section-title">Notícias & Casos Urgentes</h2>
+        <p class="section-sub">Publicações diretamente da nossa página do Facebook. Fique por dentro dos resgates, campanhas e chamados urgentes.</p>
+      </div>
+      <div class="fb-note">
+        <span>📘</span>
+        <span>Atualizações diretas da <a href="https://www.facebook.com/amigodosamigosguaranesia" target="_blank">nossa página</a></span>
+      </div>
+    </div>
+
+    <!-- Facebook Page Plugin (live feed) -->
+    <div class="fb-embed-wrap" style="margin-bottom:2rem;">
+      <div id="fb-root"></div>
+      <div class="fb-page"
+        data-href="https://www.facebook.com/amigodosamigosguaranesia"
+        data-tabs="timeline"
+        data-width="1100"
+        data-height="600"
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/amigodosamigosguaranesia" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/amigodosamigosguaranesia">Amigo dos Amigos – Guaranésia</a>
+        </blockquote>
+      </div>
+      <p style="margin-top:1rem; font-size:0.8rem; color:var(--text-light);">
+        Não conseguiu ver o feed? <a href="https://www.facebook.com/amigodosamigosguaranesia" target="_blank" style="color:var(--terracotta);">Acesse nossa página do Facebook</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ANIMALS – FOR ADOPTION -->
+<section id="adotar">
+  <div class="container">
+    <div class="section-tag">Encontre seu companheiro</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+      <h2 class="section-title">Animais para Adoção</h2>
+      <a href="https://www.facebook.com/amigodosamigosguaranesia" target="_blank" class="btn-secondary" style="padding:10px 22px;font-size:0.875rem;">Ver todos no Facebook</a>
+    </div>
+    <p class="section-sub" style="margin-bottom:2rem;">Cada um desses bichinhos está esperando uma segunda chance. Eles são castrados, vacinados e prontos para encher a sua casa de alegria.</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterAnimals('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filterAnimals('cao', this)">🐶 Cães</button>
+      <button class="filter-btn" onclick="filterAnimals('gato', this)">🐱 Gatos</button>
+      <button class="filter-btn" onclick="filterAnimals('filhote', this)">🍼 Filhotes</button>
+      <button class="filter-btn" onclick="filterAnimals('adulto', this)">🌟 Adultos</button>
+    </div>
+    <div class="animals-grid" id="adoptionGrid">
+      <!-- Cards rendered by JS below -->
+    </div>
+  </div>
+</section>
+
+<!-- LAR TEMPORÁRIO -->
+<section id="lar-temporario" style="background:var(--forest-pale);">
+  <div class="container">
+    <div class="section-tag" style="color:var(--forest);">Cuidado provisório</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+      <h2 class="section-title">Lar Temporário</h2>
+    </div>
+    <p class="section-sub" style="margin-bottom:2.5rem;">Não pode adotar agora, mas quer fazer a diferença? O lar temporário salva vidas! Você cuida por um período curto enquanto encontramos o tutor definitivo. Fornecemos ração, medicamentos e suporte veterinário.</p>
+    <div class="animals-grid" id="fosterGrid">
+      <!-- Foster cards rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <div class="section-tag">Nossa história</div>
+        <h2 class="section-title">Nascemos do amor pelos animais</h2>
+        <p class="section-sub">O Amigo dos Amigos surgiu da indignação de um grupo de voluntários em Guaranésia que não conseguia fechar os olhos para o sofrimento dos animais nas ruas. Com muito voluntariado, doação e amor, transformamos esse sentimento em ação concreta.</p>
+        <p class="section-sub" style="margin-top:1rem;">Hoje realizamos resgates, tratamentos veterinários, castração, vacinação e intermediamos adoções responsáveis, sempre com acompanhamento pós-adoção.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🏥</div>
+            <div class="pillar-title">Cuidado veterinário</div>
+            <div class="pillar-text">Todos os animais recebem vacinas, vermífugos e castração</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🏠</div>
+            <div class="pillar-title">Adoção responsável</div>
+            <div class="pillar-text">Selecionamos cuidadosamente cada tutor para cada pet</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🤝</div>
+            <div class="pillar-title">Rede de voluntários</div>
+            <div class="pillar-text">Somos movidos por pessoas que acreditam em uma causa</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">📢</div>
+            <div class="pillar-title">Conscientização</div>
+            <div class="pillar-text">Campanhas educativas contra abandono e maus-tratos</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img-stack fade-in">
+        <div class="about-img-main">
+          <img src="https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/647313663_1346988217467121_6062070768933999931_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_ohc=PugN3cweAowQ7kNvwGeBpu1&_nc_oc=AdqiuwZAqCOHyWNJ3pIYzbbwAUK73jjlemNwSqH0_-uzuz74z1GDrBZLIYswjMfXj6U&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=R_S_FywbQdN7AvE2bkVLVA&oh=00_Af2Br5SjXW2WYyNckHv7lYKHCg21ANI7viLPzyEK7_9UwA&oe=69F113E8" alt="Voluntária com cachorro">
+        </div>
+        <div class="about-img-badge">
+          <strong>100%</strong>
+          <span>voluntários</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO ADOPT -->
+<section id="como">
+  <div class="container text-center">
+    <div class="section-tag" style="justify-content:center;display:flex;">Como funciona</div>
+    <h2 class="section-title">Adotar é fácil e seguro</h2>
+    <p class="section-sub" style="margin:0 auto 0;">Seguimos um processo simples para garantir que cada animal vá para o lar certo.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Escolha seu animal</div>
+        <div class="step-text">Navegue pelos perfis e escolha aquele com quem você se identificou. Cada um tem uma história e personalidade única.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Entre em contato</div>
+        <div class="step-text">Envie uma mensagem pelo WhatsApp ou formulário informando seu interesse e contando um pouco sobre você e sua casa.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Entrevista rápida</div>
+        <div class="step-text">Um voluntário fará uma conversa descontraída para entender se o ambiente é ideal para o animal. Sem julgamentos.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Leve para casa!</div>
+        <div class="step-text">Assinamos um termo de adoção e o bichinho vai com você! Acompanhamos por 30 dias para ajudar na adaptação.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contato">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="fade-in">
+        <div class="section-tag">Fale conosco</div>
+        <h2 class="section-title">Estamos aqui para ajudar</h2>
+        <p class="section-sub">Dúvidas sobre adoção, lar temporário, como ser voluntário ou fazer doações? Nos chame!</p>
+        <div class="contact-info-items">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Localização</div>
+              <div class="contact-value">Rua Paschoal Romanelli 486 Várzea , Guaranésia, MG, Brasil</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <div class="contact-label">WhatsApp</div>
+              <div class="contact-value"><a href="https://wa.me/553588174541">+55 35 8817-4541</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📘</div>
+            <div>
+              <div class="contact-label">Facebook</div>
+              <div class="contact-value"><a href="https://www.facebook.com/amigodosamigosguaranesia" target="_blank">Amigo dos Amigos Guaranésia</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <div class="contact-label">E-mail</div>
+              <div class="contact-value"><a href="mailto:ongamigodosamigos@gmail.com">ongamigodosamigos@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💵</div>
+            <div>
+              <div class="contact-label">PIX</div>
+              <div class="contact-value">20.240.965.0001/69 (CNPJ)</a></div>
+            </div>
+          </div>          
+          <div class="contact-item">
+            <div class="contact-icon">🕒</div>
+            <div>
+              <div class="contact-label">Atendimento</div>
+              <div class="contact-value">Segunda a Sábado · 8h às 18h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap fade-in">
+        <div class="form-title">Envie uma mensagem</div>
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" placeholder="Maria Silva">
+        </div>
+        <div class="form-group">
+          <label>E-mail ou WhatsApp</label>
+          <input type="text" placeholder="(35) 99999-0000">
+        </div>
+        <div class="form-group">
+          <label>Assunto</label>
+          <select>
+            <option>Quero adotar um animal</option>
+            <option>Quero ser lar temporário</option>
+            <option>Quero ser voluntário</option>
+            <option>Quero fazer doação</option>
+            <option>Encontrei um animal abandonado</option>
+            <option>Outro assunto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea placeholder="Conte um pouco mais sobre você e o que precisa..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Enviar Mensagem 🐾</button>
+        <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:1rem;">Ou chame direto no <a href="https://wa.me/5535999999999" style="color:var(--terracotta);">WhatsApp</a> para resposta rápida!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🐾 Amigo dos Amigos</div>
+  <div class="footer-sub">Guaranésia, MG – Resgatando vidas desde 2016</div>
+  <div class="footer-links">
+    <a href="#urgente">Urgente</a>
+    <a href="#adotar">Adotar</a>
+    <a href="#lar-temporario">Lar Temporário</a>
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#contato">Contato</a>
+    <a href="https://www.facebook.com/amigodosamigosguaranesia" target="_blank">Facebook</a>
+  </div>
+  <div class="footer-copy">© 2025 Amigo dos Amigos · Feito com 💚 por voluntários</div>
+</footer>
+
+<!-- Facebook SDK for Page Plugin -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v19.0">
+</script>
+
+<script>
+// ── Animal data ──
+const animals = [
+  { id:1, name:'Neve', type:'cao', age:'adulto', ageLabel:'2 anos', sex:'Fêmea', size:'Médio porte', desc:'Dócil e ama crianças. Vive na rua. Castrado e vacinado.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/676169532_1386850620147547_5231259909481322502_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=koPa3n_ITywQ7kNvwEYkiWt&_nc_oc=AdoRwGn5yYRosGfZL6VigSMkPOEWuswOK8gpmNAN7BmYFYlXyk7H1_pKQv-w5zo-ObI&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=ZxqinGZ5RuJLvuWpUGi0Jw&oh=00_Af1-53Qfy84Q4EDFBT9VD5-XhF00fz723e63lqyBwnJ8CA&oe=69F12806' },
+  { id:2, name:'Estrela', type:'gato', age:'filhote', ageLabel:'3 meses', sex:'Fêmea', size:'Pequeno Porte', desc:'Carinhosa e tranquila. Ideal para famílias. Adora colo e música suave.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/678750250_1386809990151610_947612656222999829_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=oD19U60eoU8Q7kNvwFyxPSj&_nc_oc=Adp9HCEJgh9oJY7ZSWHd9o3m9mDXbJux_cnmFeJmjQCm5UWT-JT0SVmSavRtVL_W7q0&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=EWnJbCgLm_ZZdPZ5SU0duw&oh=00_Af0e_0B-d5086_XBi6OtHt9DM-7Wu_4PxGEytKiwQQj09g&oe=69F13427' },
+  { id:3, name:'Tigresa', type:'cao', age:'adulto', ageLabel:'4 anos', sex:'Fêmea', size:'Grande Porte', desc:'Cheia de energia! Perfeita para famílias. Vacinada e vermifugada.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/670834929_1380875190745090_5296306610618057377_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_ohc=Vl14P4eBbH4Q7kNvwGeAS2U&_nc_oc=AdqgVPQBdyCKc6CnOd8zTh-rAiSs-fn0hGV5mbmnEL_FajHOhS_vW8o1v1_1XCHCIhI&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=xksfwX8DkM1TsS4BbhRd-A&oh=00_Af2YdNJqF2GHvHvjSkTK7-VU8txgd0Gx2MGfXIPql9dN3Q&oe=69F1183F' },
+  { id:4, name:'Simba', type:'cao', age:'filhote', ageLabel:'3 meses', sex:'Macho', size:'Pequeno Porte', desc:'Independente e fofinho. Ótimo companheiro.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/670474505_1378373440995265_1127913060430493882_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=N0HRJFG9XOEQ7kNvwEvHGio&_nc_oc=AdqBRTpYY7SV265eezeN6G5SINXSzaXLPcTqIzmxjjGO9lS4ny_ViS6mvK-v0z4cYhM&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=i-keWC4Tq2eaxdTnMdUTGw&oh=00_Af04odW5q7fzs6hLlCfs3eoLbBnmIhwmolneAz32XtBc7w&oe=69F137E7' },
+  { id:5, name:'Chefe', type:'cao', age:'adulto', ageLabel:'3 anos', sex:'Macho', size:'Grande Porte', desc:'Tímido no começo mas se apaixona rápido. Ótimo com outros cães. Castrado.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/668825464_1374948651337744_4179311610876499341_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_ohc=l9XXUiQOolsQ7kNvwES2_wK&_nc_oc=AdoTvd0PXZ3OuM5CQXMzleO0UIAflWaGDD4YJ2QjE8MTcOdUEwSveiuAezaDwatVQbU&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=_DkQmrLqgKemfUCvdI7Eog&oh=00_Af0RS0JQKbvl2UV1FmQxquXy4aAZDr9r5xv51rzlWQ_Uuw&oe=69F10777' },
+  { id:6, name:'Nina', type:'cao', age:'adulto', ageLabel:'2 anos', sex:'Fêmea', size:'Médio porte', desc:'Brincalhona e curiosa. Adora brincar e adormir no colo.', status:'adotar', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/668676116_1374567054709237_6611549104334464250_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=n3AbuSA_2QgQ7kNvwEC4dxB&_nc_oc=Ado-nzaRzdQbmck7FPJvPRbRzhzSJ4D71pgwoYj8Cq5hAen2jpv-bS400QW_GPWr0qQ&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=j019p42hUVDsTYU4IWsyPg&oh=00_Af1d5TGxQZBnWmr-c4dWkgO37ZAucWGZDAVpTnwSj9VDGw&oe=69F13A47' },
+];
+
+const fosterAnimals = [
+  { id:7, name:'Kiara', type:'cao', age:'adulto', ageLabel:'5 anos', sex:'Fêmea', size:'Médio porte', desc:'Em recuperação pós-cirurgia. Precisa de lar temporário tranquilo por 2 meses. Super dócil.', status:'lar-temporario', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/659580053_1371100485055894_6453633226753170767_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=jyCgEdVuzWAQ7kNvwGRGGLE&_nc_oc=AdqUJN3Mh70KZ6x8wMo7n1F8UYR0kXLaRUeGaiPrQ0RjXZ6QSUCRCPoaqZP0p4sqk84&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=trUppVWqmcytP3q1UX6f_g&oh=00_Af3VPIjtkfAG6PLMgIclHL-56tRN8oP_inb8oMCxq94xZQ&oe=69F10977' },
+  { id:8, name:'Mia', type:'gato', age:'filhote', ageLabel:'2 meses', sex:'', size:'Filhote', desc:'Filhotinha órfã que precisa de mamadeira 3x ao dia. Experiência com pets é um plus.', status:'lar-temporario', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/651267073_1355406173291992_1153400851394230718_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=ADGhpiNyfVIQ7kNvwGjMNhL&_nc_oc=AdqgR9xifzGkk6NsCJw0UL1HO3JHzUCq5ZD5c29p9Bb-ENf5bftnNhgCUxL0gCLVuN4&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=AThhMmuF1cR6B9dsy693ig&oh=00_Af1RgsHyAMtjC0J4IvkgR0z8-Dj0CPLj7iLMrHR2BcovPA&oe=69F122F5' },
+  { id:9, name:'Bernardo', type:'cao', age:'adulto', ageLabel:'3 ano', sex:'Macho', size:'Grande porte', desc:'Assustado com barulhos depois de resgate. Precisa de lar calmo para socialização.', status:'lar-temporario', img:'https://scontent.fpoo2-1.fna.fbcdn.net/v/t39.30808-6/652302125_1353876953444914_7154612151129038316_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_ohc=_Utdi4NY1f4Q7kNvwFbYQWX&_nc_oc=Adrzj5cZGYZtPPvE1c0a6Zkcs6T8ev5UIy8JqUdY259IYtW31Ur8Tb1ZJhN5Lmio-TQ&_nc_zt=23&_nc_ht=scontent.fpoo2-1.fna&_nc_gid=AThhMmuF1cR6B9dsy693ig&oh=00_Af0Svex0z8Y0zH7Z1iu0AVXASb79IWdGvh_iWbdjzhTInQ&oe=69F135EE' },
+];
+
+let currentFilter = 'todos';
+
+function renderAnimalCard(a, isFoster=false) {
+  return `
+    <div class="animal-card" data-type="${a.type}" data-age="${a.age}">
+      <div class="animal-card-img">
+        <img src="${a.img}" alt="${a.name}" loading="lazy">
+        <div class="animal-card-badges">
+          <span class="animal-badge ${isFoster ? 'badge-foster' : 'badge-adopt'}">${isFoster ? 'Lar Temporário' : 'Adoção'}</span>
+        </div>
+      </div>
+      <div class="animal-card-body">
+        <div class="animal-card-name">${a.name}</div>
+        <div class="animal-card-details">${a.sex} · ${a.ageLabel} · ${a.size}</div>
+        <div class="animal-card-desc">${a.desc}</div>
+        <a href="https://wa.me/5535999999999?text=Olá! Tenho interesse no(a) ${a.name} 🐾" target="_blank" class="btn-adopt ${isFoster ? 'btn-foster' : ''}">${isFoster ? 'Quero ser lar temporário' : 'Quero adotar'}</a>
+      </div>
+    </div>`;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('adoptionGrid');
+  let filtered = animals;
+  if (currentFilter === 'cao') filtered = animals.filter(a => a.type === 'cao');
+  else if (currentFilter === 'gato') filtered = animals.filter(a => a.type === 'gato');
+  else if (currentFilter === 'filhote') filtered = animals.filter(a => a.age === 'filhote');
+  else if (currentFilter === 'adulto') filtered = animals.filter(a => a.age === 'adulto');
+  grid.innerHTML = filtered.map(a => renderAnimalCard(a)).join('');
+}
+
+function renderFosterGrid() {
+  const grid = document.getElementById('fosterGrid');
+  grid.innerHTML = fosterAnimals.map(a => renderAnimalCard(a, true)).join('');
+}
+
+function filterAnimals(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function handleSubmit() {
+  alert('Mensagem enviada! 🐾 Entraremos em contato em breve. Obrigado!');
+}
+
+renderGrid();
+renderFosterGrid();
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
